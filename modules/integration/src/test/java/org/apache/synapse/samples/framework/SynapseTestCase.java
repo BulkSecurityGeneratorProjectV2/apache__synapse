@@ -36,6 +36,7 @@ import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -277,7 +278,7 @@ public abstract class SynapseTestCase extends TestCase {
             String synapseAxis2Xml = synapseController.getAxis2Xml();
             String axis2Config = FileUtils.readFileToString(new File(synapseAxis2Xml));
             String modifiedSynapseAxis2 = SynapseTestUtils.replace(axis2Config, "${replace.me}", ip);
-            File tempSynapseAxis2 = File.createTempFile("axis2Syn-", "xml");
+            File tempSynapseAxis2 = Files.createTempFile("axis2Syn-", "xml").toFile();
             tempSynapseAxis2.deleteOnExit();
             FileUtils.writeStringToFile(tempSynapseAxis2, modifiedSynapseAxis2);
             synapseController.setAxis2Xml(tempSynapseAxis2.getAbsolutePath());
@@ -288,7 +289,7 @@ public abstract class SynapseTestCase extends TestCase {
                     String beAxis2Xml = axis2Controller.getAxis2Xml();
                     String beAxis2Config = FileUtils.readFileToString(new File(beAxis2Xml));
                     String modifiedBEAxis2 = SynapseTestUtils.replace(beAxis2Config, "${replace.me}", ip);
-                    File tempBEAxis2 = File.createTempFile("axis2BE-", "xml");
+                    File tempBEAxis2 = Files.createTempFile("axis2BE-", "xml").toFile();
                     tempBEAxis2.deleteOnExit();
                     FileUtils.writeStringToFile(tempBEAxis2, modifiedBEAxis2);
                     axis2Controller.setAxis2Xml(tempBEAxis2.getAbsolutePath());

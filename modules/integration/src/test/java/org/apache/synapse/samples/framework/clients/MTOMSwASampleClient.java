@@ -44,6 +44,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 public class MTOMSwASampleClient {
 
@@ -97,7 +98,7 @@ public class MTOMSwASampleClient {
             dataHandler = (DataHandler) binaryNode.getDataHandler();
             InputStream is = dataHandler.getInputStream();
             log.info("temp.dir: " + System.getProperty("java.io.tmpdir"));
-            File tempFile = File.createTempFile("mtom-", ".gif");
+            File tempFile = Files.createTempFile("mtom-", ".gif").toFile();
             FileOutputStream fos = new FileOutputStream(tempFile);
             BufferedOutputStream dest = new BufferedOutputStream(fos, 2048);
 
@@ -171,7 +172,7 @@ public class MTOMSwASampleClient {
 
             Attachments attachment = response.getAttachmentMap();
             dataHandler = attachment.getDataHandler(imageContentId);
-            File tempFile = File.createTempFile("swa-", ".gif");
+            File tempFile = Files.createTempFile("swa-", ".gif").toFile();
             FileOutputStream fos = new FileOutputStream(tempFile);
             dataHandler.writeTo(fos);
             fos.flush();

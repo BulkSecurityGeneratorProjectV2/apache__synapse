@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
+import java.nio.file.Files;
 
 /**
  * Class representing some temporary data in the form of a byte stream.
@@ -280,7 +281,7 @@ public class TemporaryData {
      * @throws IOException in case of an error in switching to the temp file
      */
     FileOutputStream switchToTempFile() throws IOException {
-        temporaryFile = File.createTempFile(tempPrefix, tempSuffix);
+        temporaryFile = Files.createTempFile(tempPrefix, tempSuffix).toFile();
         if (log.isDebugEnabled()) {
             log.debug("Using temporary file " + temporaryFile);
         }

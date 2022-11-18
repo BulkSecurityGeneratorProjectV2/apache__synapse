@@ -51,6 +51,7 @@ import org.apache.axis2.util.XMLPrettyPrinter;
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Date;
 
@@ -601,7 +602,7 @@ public class MultiXMLConfigurationSerializer {
 
 
     private void writeToFile(OMElement content, File file) throws Exception {
-        File tempFile = File.createTempFile("syn_mx_", ".xml");
+        File tempFile = Files.createTempFile("syn_mx_", ".xml").toFile();
         OutputStream out = FileUtils.openOutputStream(tempFile);
         XMLPrettyPrinter.prettify(content, out);
         out.flush();

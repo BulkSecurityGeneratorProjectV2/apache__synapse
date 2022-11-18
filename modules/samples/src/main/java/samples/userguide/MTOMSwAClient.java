@@ -39,6 +39,7 @@ import javax.activation.FileDataSource;
 import javax.activation.DataHandler;
 import javax.xml.namespace.QName;
 import java.io.*;
+import java.nio.file.Files;
 
 public class MTOMSwAClient {
 
@@ -130,7 +131,7 @@ public class MTOMSwAClient {
 
         Attachments attachment = response.getAttachmentMap();
         dataHandler = attachment.getDataHandler(imageContentId);
-        File tempFile = File.createTempFile("swa-", ".gif");
+        File tempFile = Files.createTempFile("swa-", ".gif").toFile();
         FileOutputStream fos = new FileOutputStream(tempFile);
         dataHandler.writeTo(fos);
         fos.flush();
@@ -172,7 +173,7 @@ public class MTOMSwAClient {
         dataHandler = (DataHandler) binaryNode.getDataHandler();
         InputStream is = dataHandler.getInputStream();
 
-        File tempFile = File.createTempFile("mtom-", ".gif");
+        File tempFile = Files.createTempFile("mtom-", ".gif").toFile();
         FileOutputStream fos = new FileOutputStream(tempFile);
         BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER);
 
